@@ -70,7 +70,7 @@ build() {
   if test -n "$PYTORCH_ROCM_ARCH"; then
     export PYTORCH_ROCM_ARCH="$PYTORCH_ROCM_ARCH"
   else
-    export PYTORCH_ROCM_ARCH="gfx803;gfx900;gfx906;gfx908;gfx90a;gfx1030"
+    export PYTORCH_ROCM_ARCH="gfx803;gfx900;gfx906;gfx908;gfx90a;gfx1030;gfx1100"
   fi
 
   cmake "../" \
@@ -78,6 +78,7 @@ build() {
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_CXX_FLAGS="${CXXFLAGS} -O3" \
     -DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
+    -DHIP_ROOT_DIR=/opt/rocm \
     -DWITH_PNG=ON \
     -DWITH_JPEG=ON
   make
