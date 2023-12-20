@@ -19,6 +19,8 @@ Please paste the output of
 ```sh
 /opt/rocm/bin/rocminfo | grep -E "(Name|ID):"
 export | grep -E "(GPU_TARGETS|AMDGPU_TARGETS|PYTORCH_ROCM_ARCH|HSA_OVERRIDE_GFX_VERSION)"
+python -c 'import torch.version as v; \
+  print("torch: {}\nrocm: {}\n".format(v.git_version, v.hip))'
 ```
 
 in the issue, alongside the commandline used to build this package.
@@ -29,7 +31,7 @@ See https://rocm.docs.amd.com/en/docs-5.7.1/release/gpu_os_support.html#linux-su
 
 Currently, users with a gfx1103 should set `export HSA_OVERRIDE_GFX_VERSION=11.0.0` before building the package.
 
-To build for a specific architecture only, `export PYTORCH_ROCM_ARCH=gfx01234` before starting the build.
+To build only for a specific architecture, `export PYTORCH_ROCM_ARCH=gfx01234` before starting the build. GPU_TARGETS, AMDGPU_TARGETS will be used in addition to PYTORCH_ROCM_ARCH, the later overriding the ealier if more than one is set.
 
 ### Unsupported GPU-Architectures
 
